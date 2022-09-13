@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         AWS SSO Retrieve & inject session token
 // @namespace    https://github.com/guyon-it-consulting/
-// @version      0.2
+// @version      0.3
 // @description  Allow retrieving and injection SSO session token accross browser sessions
 // @author       Jérôme GUYON - jerome.guyon@guyon-it-consulting.fr
 // @match        https://*.awsapps.com/start/*
 // @grant        none
 // @require      https://gist.githubusercontent.com/raw/2625891/waitForKeyElements.js
 // @require      https://code.jquery.com/jquery-3.6.1.slim.min.js
-// @run-at       document-body
+// @run-at       document-idle
 // @downloadURL  https://github.com/guyon-it-consulting/aws-sso-tampermonkey-scripts/raw/main/retrieve_and_inject_session_token.user.js
 // @updateURL    https://github.com/guyon-it-consulting/aws-sso-tampermonkey-scripts/raw/main/retrieve_and_inject_session_token.user.js
 // ==/UserScript==
