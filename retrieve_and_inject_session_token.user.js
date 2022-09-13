@@ -8,6 +8,7 @@
 // @grant        none
 // @require      https://gist.githubusercontent.com/raw/2625891/waitForKeyElements.js
 // @require      https://code.jquery.com/jquery-3.6.1.slim.min.js
+// @run-at       document-start
 // ==/UserScript==
 
 function setCookie(cname, cvalue, exdays) {
