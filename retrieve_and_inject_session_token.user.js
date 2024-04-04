@@ -37,33 +37,37 @@ function getCookie(cname) {
 }
 
 function copy(input) {
+  const cookie = input;
+
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(input).then(() => {
+    navigator.clipboard.writeText(cookie).then(() => {
       console.log('Copied to clipboard successfully.');
     }, (err) => {
       console.log('Failed to copy the text to clipboard.', err);
     });
   } else if (window.clipboardData) {
-    window.clipboardData.setData("Text", input);
+    window.clipboardData.setData("Text", cookie);
   }
 }
 
 // Wait for loading of banner
-waitForKeyElements("div.service-links", function() {
+waitForKeyElements("div.awsui-context-top-navigation", function() {
 
-    const serviceLinkBanner = $('div.service-links');
+    const serviceLinkBanner = $('div.awsui-context-top-navigation > header > div > div:nth-child(2) ');
+    //const firstChildToMimic = serviceLinkBanner.find(">:first-child");
+    const firstChildToMimic = serviceLinkBanner.find(">:nth-child(2)");
+    const newNode = firstChildToMimic.clone();
+    newNode.find("span > a > span").text('Copy SSO cookie');
+    newNode.find("span > a").attr("href", "#")
 
-    serviceLinkBanner.prepend($('<div class="divider"><div>'));
+    serviceLinkBanner.prepend(newNode);
 
-    const nodeCopyCookie = $('<a>Copy SSO cookie</a>');
-    nodeCopyCookie.click(function(e) {
+    newNode.click(function(e) {
         //retrieve current value of token
         const tokenValue = getCookie('x-amz-sso_authn');
         //copy token
         copy(tokenValue);
     });
-
-    serviceLinkBanner.prepend(nodeCopyCookie);
 
 }, false);
 
@@ -75,9 +79,19 @@ waitForKeyElements("div.service-links", function() {
     const tokenValue = getCookie('x-amz-sso_authn');
     if(!tokenValue)
     {
-        if( confirm("No sso token cookie detected. Do you want to inject one?") )
+        /*if (navigator.clipboard) {
+            const injectToken = navigator.clipboard.read();
+
+            setCookie('x-amz-sso_authn', injectToken.replace("COOKIE=", ""), 1);
+        }
+
+        }else if (window.clipboardData){
+            //TODO
+        }*/
+
+        //if( confirm("No sso token cookie detected. Do you want to inject one?") )
         {
-            const injectToken = prompt("Please enter the token");
+            const injectToken = prompt("No sso token cookie detected. Do you want to inject one? Please enter the token");
             setCookie('x-amz-sso_authn', injectToken, 1);
         }
     }
